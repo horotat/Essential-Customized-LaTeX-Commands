@@ -1,0 +1,31 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{paperwriting}[2023/11/29 Paper Writing Facilitator]
+
+% report GLMM results
+\newcommand{\pglmm}[3][1]{($\chi^{2}(#1)=#2$, $p#3$)}
+
+% report one-sample proportions test with continuity correction
+\newcommand{\prop}[3]{($\chi^{2}(#1)=#2$, $p#3$)}
+
+% report shapiro-wilk test results
+\newcommand{\swt}[2]{$W = #1$ ($p #2$)}
+
+% report t-test results
+\newcommand{\ttest}[3]{($t(#1)=#2$, $p#3$)}
+
+% report Wilcoxon rank sum test
+\newcommand{\wrst}[2]{($W=#1$, $p=#2$)}
+
+% report mean and standard-deviation results
+\newcommand{\msd}[3]{$\bar{x} = #1$ ($n = #2$, $s = #3$)}
+\newcommand{\ms}[2]{($\bar{x} = #1$, $s = #2$)}
+
+% hypothesis and research question numbering
+\RequirePackage{enumitem}
+\newlist{researchquestion}{enumerate}{1}
+\setlist[researchquestion]{label=\textbf{RQ\arabic*}}
+
+\newlist{hypothesis}{enumerate}{1}
+\setlist[hypothesis]{label=\textbf{H.\arabic*}}
+
+\endinput
