@@ -2,29 +2,73 @@
 \ProvidesPackage{paperwriting}[2023/11/29 Paper Writing Facilitator]
 
 % report GLMM results
+% Defines a command \pglmm with three arguments: 
+% - The optional argument [1] specifies the degrees of freedom for the chi-squared test (default is 1).
+% - The second argument #2 specifies the chi-squared test statistic.
+% - The third argument #3 specifies the p-value for the chi-squared test.
+% This command generates a formatted string displaying the chi-squared test results in parentheses.
+% Example usage: \pglmm[2]{3.45}{<0.001} will produce ($\chi^{2}(2)=3.45$, $p<0.001$).
 \newcommand{\pglmm}[3][1]{($\chi^{2}(#1)=#2$, $p#3$)}
 
 % report one-sample proportions test with continuity correction
+% \prop{#1}{#2}{#3} calculates and displays the results of a one-sample proportions test with continuity correction.
+% Parameters:
+%   - #1: The degrees of freedom for the chi-square distribution.
+%   - #2: The chi-square test statistic.
+%   - #3: The p-value for the test.
+% Returns:
+%   - The formatted result of the proportions test.
 \newcommand{\prop}[3]{($\chi^{2}(#1)=#2$, $p#3$)}
 
 % report shapiro-wilk test results
+% \swt{W-value}{p-value}
+% This command is used to display the results of the Shapiro-Wilk test in a standardized format. It takes two arguments: the W-value and the p-value. The command will output the W-value followed by the p-value in parentheses.
+% Example usage: \swt{0.987}{<0.001}
 \newcommand{\swt}[2]{$W = #1$ ($p #2$)}
 
 % report t-test results
-\newcommand{\ttest}[3]{($t(#1)=#2$, $p#3$)}
+\newcommand{\ttest}[4][0]{%  
+    ($t(#2) = #3$, $p #4$%
+     \ifnum#1>0{, Cohen's $d$ = #1}% Check if Cohen's d is provided
+)}
+% DOCUMENTATION COMMENT
+% Command: \ttest
+% Description: This command is used to report t-test results. It takes four arguments: 
+%   - #1 (optional): Cohen's d value (default is 0)
+%   - #2: degrees of freedom
+%   - #3: t-value
+%   - #4: p-value
+% It returns a formatted string with the t-test results, including the t-value, p-value, and optionally Cohen's d value.
+
 
 % report Wilcoxon rank sum test
+% Defines a command \wrst to display the results of the Wilcoxon rank sum test.
+% Parameters:
+% - #1: The value of the test statistic (W).
+% - #2: The p-value of the test.
+% Returns: A formatted string displaying the test results.
 \newcommand{\wrst}[2]{($W=#1$, $p=#2$)}
 
 % report mean and standard-deviation results
-\newcommand{\msd}[3]{$\bar{x} = #1$ ($n = #2$, $s = #3$)}
-\newcommand{\ms}[2]{($\bar{x} = #1$, $s = #2$)}
+% \msd command is used to display the mean, sample size, and standard deviation of a data set.
+% Parameters:
+%   - #1 (optional): If set to 'true', the sample size will be included in the output.
+%   - #2: The mean value of the data set.
+%   - #3: The standard deviation of the data set.
+\newcommand{\msd}[3][true]{%
+    ($\bar{x} = #2$%
+     \ifx#1true, $n = #3$\fi, % Include n if [true] is provided 
+     $s = #3$% 
+ )}
 
 % hypothesis and research question numbering
 \RequirePackage{enumitem}
+
+% Define a new list environment for research questions
 \newlist{researchquestion}{enumerate}{1}
 \setlist[researchquestion]{label=\textbf{RQ\arabic*}}
 
+% Define a new list environment for hypotheses
 \newlist{hypothesis}{enumerate}{1}
 \setlist[hypothesis]{label=\textbf{H.\arabic*}}
 
